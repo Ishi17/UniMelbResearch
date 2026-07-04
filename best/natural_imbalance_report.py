@@ -1,6 +1,5 @@
-# ============================================================
 # Natural Class Imbalance Report
-# ============================================================
+
 # Purpose:
 # This script calculates the natural class imbalance from the
 # already-generated natural_dataset_metadata.csv file.
@@ -8,25 +7,21 @@
 # It does NOT train the model.
 # It does NOT rerun the layer sweep.
 # It only reads the saved metadata file and reports the label distribution.
-# ============================================================
+
 
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-# ============================================================
 # 1. SETTINGS
-# ============================================================
 
 INPUT_FILE = "natural_dataset_metadata.csv"
 OUTPUT_SUMMARY_FILE = "natural_class_imbalance_summary.csv"
 OUTPUT_GRAPH_FILE = "natural_class_imbalance_graph.png"
 
 
-# ============================================================
 # 2. LOAD METADATA
-# ============================================================
 
 if not os.path.exists(INPUT_FILE):
     raise FileNotFoundError(
@@ -44,9 +39,7 @@ if "label" not in metadata_df.columns:
     )
 
 
-# ============================================================
 # 3. CALCULATE CLASS IMBALANCE
-# ============================================================
 
 total_samples = len(metadata_df)
 
@@ -61,9 +54,7 @@ positive_percentage = (positive_count / total_samples) * 100
 imbalance_ratio = negative_count / max(positive_count, 1)
 
 
-# ============================================================
 # 4. CREATE SUMMARY TABLE
-# ============================================================
 
 summary_df = pd.DataFrame({
     "Class": ["Not complete cycle", "Complete cycle"],
@@ -75,9 +66,7 @@ summary_df = pd.DataFrame({
 summary_df.to_csv(OUTPUT_SUMMARY_FILE, index=False)
 
 
-# ============================================================
 # 5. PRINT RESULTS
-# ============================================================
 
 print("\nNATURAL CLASS IMBALANCE REPORT")
 print("==============================")
@@ -94,9 +83,7 @@ print()
 print(f"Saved summary table to: {OUTPUT_SUMMARY_FILE}")
 
 
-# ============================================================
 # 6. CREATE BAR GRAPH
-# ============================================================
 
 plt.figure(figsize=(7, 5))
 
@@ -127,9 +114,7 @@ plt.show()
 print(f"Saved graph to: {OUTPUT_GRAPH_FILE}")
 
 
-# ============================================================
 # 7. PAPER-READY SENTENCE
-# ============================================================
 
 print("\nPAPER-READY SENTENCE")
 print("====================")
